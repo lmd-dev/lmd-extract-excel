@@ -1,0 +1,132 @@
+body {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+}
+
+body > div:first-child {
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(49, 106, 180);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: height 1s;
+}
+
+body > div:first-child.reduce {
+    height: 81px;
+}
+
+input[type="file"] {
+    position: fixed;
+    top: -10000px;
+}
+
+input[type="radio"] {
+    margin-top: 0;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+label {
+    cursor: pointer;
+}
+
+#btn-load-file {
+    margin: 30px;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #0b223e;
+    box-shadow: 0 0 10px rgb(0 0 0 / 30%);
+    cursor: pointer;
+    box-sizing: border-box;
+    text-transform: uppercase;
+    line-height: 100%;
+    color: #dcdcdc;
+}
+
+#extract-header {
+    z-index: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    align-items: center;
+    padding: 10px;
+    box-sizing: border-box;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: opacity 1s;
+}
+
+#extract-header.hidden {
+    display: none;
+    opacity: 0;
+}
+
+#extract-header > h1 {
+    font-size: 18px;
+    text-align: center;
+}
+
+#extract-header > div {
+    display: flex;
+}
+
+#extract-header > div > div {
+    display: flex;
+    align-items: center;
+    line-height: 100%;
+    margin: 10px 30px;
+}
+
+#extract-content {
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    transition: height 1s;
+}
+
+#extract-content.hidden {
+    height: 0;
+    padding:0;
+}
+
+#extract-content h1 {
+    font-size: 20px;
+    color: #eee;
+    background-color:rgb(49, 106, 180);
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+#extract-content h1 sup {
+    font-size: 12px;
+}
+
+#extract-content h3.warning {
+    background-color: #ed4e4e;
+    color: #eee;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+#extract-content .module, #extract-content .skill {
+    margin-left: 20px;
+}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+
+    <body>
+
+        <div>
+            <input type="file" id="txtFile">
+            <button id="btn-load-file">Charger une matrice croisée</button>
+        </div>
+
+        <div id="extract-header" class="hidden">
+            <h1></h1>
+            <div>
+                <div><input type="radio" id="rb-teaching-unit" name="rb-skills" checked /><label for="rb-teaching-unit">Compétences par UE</label></div>
+                <div><input type="radio" id="rb-module" name="rb-skills" /><label for="rb-module">Compétences par Module</label></div>
+                <div><input type="checkbox" id="chk-block" checked /><label for="chk-block">Afficher les blocs de compétences</label></div>
+            </div>
+        </div>
+        <div id="extract-content" class="hidden"></div>
+
+        <script src="js/libs/sheetjs.js"></script>
+        <script src="js/application/extractor-app.js"></script>
+        <script src="js/patterns/notifier.js"></script>
+        <script src="js/controllers/controller-main.js"></script>
+        <script src="js/views/view-main.js"></script>
+        <script src="js/models/skill.js"></script>
+        <script src="js/models/module.js"></script>
+        <script src="js/models/teaching-unit.js"></script>
+        <script src="js/models/study-year.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+
+</html>
