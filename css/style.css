@@ -42,17 +42,22 @@ label {
     cursor: pointer;
 }
 
-#btn-load-file {
-    margin: 30px;
+button {
     padding: 10px;
     border-radius: 5px;
     border: none;
-    background-color: #0b223e;
     box-shadow: 0 0 10px rgb(0 0 0 / 30%);
     cursor: pointer;
     box-sizing: border-box;
     text-transform: uppercase;
     line-height: 100%;
+    background-color: #30af13;
+    color: #eee;
+}
+
+#btn-load-file {
+    margin: 30px;
+    background-color: #0b223e;
     color: #dcdcdc;
 }
 
