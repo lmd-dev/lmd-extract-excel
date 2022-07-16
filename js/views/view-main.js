@@ -30,22 +30,37 @@ class ViewMain
     #initEvents()
     {
         const btnLoadFile = document.querySelector("#btn-load-file");
-        const txtFile = document.querySelector("#txtFile");
+        const txtFileMatrix = document.querySelector("#txt-file-matrix");
 
         btnLoadFile.addEventListener("click", (event) =>
         {
-            txtFile.dispatchEvent(new MouseEvent("click"));
+            txtFileMatrix.dispatchEvent(new MouseEvent("click"));
         })
 
-        txtFile.addEventListener("change", () =>
+        txtFileMatrix.addEventListener("change", () =>
         {
-            if (txtFile.files.length)
-                this.#controller.extractFromFile(txtFile.files[0]);
+            if (txtFileMatrix.files.length)
+                this.#controller.extractFromFile(txtFileMatrix.files[0]);
+        })
+
+        const txtFileTemplate = document.querySelector("#txt-file-template");
+        
+        txtFileTemplate.addEventListener("change", () =>
+        {
+            if (txtFileTemplate.files.length)
+                this.#controller.makeTeachingUnitsFiles(txtFileTemplate.files[0]);
         })
 
         document.querySelector("#rb-teaching-unit").addEventListener("click", () => { this.notify() })
         document.querySelector("#rb-module").addEventListener("click", () => { this.notify() })
         document.querySelector("#chk-block").addEventListener("change", () => { this.notify() })
+
+        document.querySelector("#btn-make-ue-files").addEventListener("click", () => { 
+            txtFileTemplate.files = null;
+            txtFileTemplate.dispatchEvent(new MouseEvent("click")) 
+        })
+
+        document.querySelector("#credits").addEventListener("click", () => { document.querySelector("#credits").classList.toggle("hidden")})
     }
 
     /**

@@ -12,7 +12,7 @@
     <body>
 
         <div>
-            <input type="file" id="txtFile">
+            <input type="file" id="txt-file-matrix" accept=".xlsx">
             <button id="btn-load-file">Charger une matrice croisée</button>
         </div>
 
@@ -22,11 +22,29 @@
                 <div><input type="radio" id="rb-teaching-unit" name="rb-skills" checked /><label for="rb-teaching-unit">Compétences par UE</label></div>
                 <div><input type="radio" id="rb-module" name="rb-skills" /><label for="rb-module">Compétences par Module</label></div>
                 <div><input type="checkbox" id="chk-block" checked /><label for="chk-block">Afficher les blocs de compétences</label></div>
+                <button id="btn-make-ue-files">Générer les fiches UE</button>
+                <input type="file" id="txt-file-template" accept=".docx" />
             </div>
         </div>
         <div id="extract-content" class="hidden"></div>
 
+        <div id="credits" class="hidden">
+            <div id="credits-logo"></div>
+            <div>
+                Consulter le <a href="">Manuel utilisateur</a><br><br>
+                Ce projet utilise les bibliothèques suivantes :
+                <ul>
+                    <li><a href="https://sheetjs.com/">SheetJS</a></li>
+                    <li><a href="https://docxtemplater.com/">DocxTemplater</a></li>
+                    <li><a href="https://github.com/open-xml-templating/pizzip">PizZip</a></li>
+                </ul>
+            </div>
+        </div>
+
         <script src="js/libs/sheetjs.js"></script>
+        <script src="js/libs/docxtemplater.3.31.2.js"></script>
+        <script src="js/libs/pizzip.3.1.1.js"></script>
+        
         <script src="js/application/extractor-app.js"></script>
         <script src="js/patterns/notifier.js"></script>
         <script src="js/controllers/controller-main.js"></script>
