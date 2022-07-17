@@ -66,9 +66,13 @@ class ControllerMain extends Notifier
      */
     #extractFromSheet(sheet, sheetName)
     {
-        this.#extractSkills(sheet, sheetName);
-        this.#extractModules(sheet);
-
+        if(sheetName.toLowerCase() === "ue")
+            this.#extractTeachingUnitDetails(sheet);
+        else
+        {
+            this.#extractSkills(sheet, sheetName);
+            this.#extractModules(sheet);
+        }
         this.notify();
     }
 
@@ -175,21 +179,21 @@ class ControllerMain extends Notifier
      */
     #addTeachingUnit(studyYears, teachingUnit)
     {
-        if (studyYears.size === 0 || studyYears.get(this.#iCurrentStudyYear).teachingUnits.has(teachingUnit.name) === true)
+        if (studyYears.size === 0 || studyYears.get(this.#iCurrentStudyYear + "A").teachingUnits.has(teachingUnit.name) === true)
         {
             if (studyYears.size === 0)
                 this.#iCurrentStudyYear = 3;
             else
                 ++this.#iCurrentStudyYear;
 
-            const studyYear = new StudyYear(this.#iCurrentStudyYear);
+            const studyYear = new StudyYear(this.#iCurrentStudyYear + "A");
             studyYear.addTeachingUnit(teachingUnit);
 
             studyYears.set(studyYear.name, studyYear);
         }
         else
         {
-            studyYears.get(this.#iCurrentStudyYear).addTeachingUnit(teachingUnit);
+            studyYears.get(this.#iCurrentStudyYear + "A").addTeachingUnit(teachingUnit);
         }
     }
 
@@ -210,6 +214,51 @@ class ControllerMain extends Notifier
                 studyYear.merge(studyYearToMerge);
             }
         })
+    }
+
+    #extractTeachingUnitDetails(sheet)
+    {
+        const colYear = 1;
+        const colSemester = 2;
+        const colTeachingUnit = 3;
+        const colFullname = 4;
+        const colCredits = 5;
+
+        let iRow = 2;
+        let currentStudyYear = "";
+        let currentSemester = "";
+        let cellTeachingUnit = null;
+
+
+        do
+        {
+            const cellYear = sheet[XLSX.utils.encode_cell({ r: iRow, c: colYear })]
+            const cellSemester = sheet[XLSX.utils.encode_cell({ r: iRow, c: colSemester })]
+            cellTeachingUnit = sheet[XLSX.utils.encode_cell({ r: iRow, c: colTeachingUnit })]
+            const cellFullname = sheet[XLSX.utils.encode_cell({ r: iRow, c: colFullname })]
+            const cellCredits = sheet[XLSX.utils.encode_cell({ r: iRow, c: colCredits })]
+
+            if(cellYear && cellYear.w !== currentStudyYear)
+                currentStudyYear = cellYear.w;
+                
+            if(cellSemester && cellSemester.w !== currentSemester)
+                currentSemester = cellSemester.w;
+
+            if(cellTeachingUnit)
+            {
+                const teachingUnit = this.studyYears.get(currentStudyYear).teachingUnits.get(cellTeachingUnit.w);
+
+                teachingUnit.semester = currentSemester;
+
+                if(cellFullname && cellFullname.w !== "")
+                    teachingUnit.fullname = cellFullname.w;
+                    
+                if(cellCredits && cellCredits.w !== "")
+                    teachingUnit.studyCredits = cellCredits.w;
+
+                ++iRow;
+            }
+        } while(cellTeachingUnit && cellTeachingUnit.w !== "")
     }
 
     /**
@@ -233,7 +282,7 @@ class ControllerMain extends Notifier
                     const blob = await this.#makeTeachingUnitFile(templateFile, teachingUnit)
 
                     zip.file(
-                        `${ studyYear.name }A - ${ teachingUnit.name }.docx`,
+                        `${ studyYear.name } - ${ teachingUnit.name }.docx`,
                         await blob.arrayBuffer(),
                         { binary: true }
                     );
@@ -263,6 +312,9 @@ class ControllerMain extends Notifier
         const docx = new docxtemplater(template);
 
         docx.render({
+            semester: teachingUnit.semester,
+            uename: `${teachingUnit.name} - ${teachingUnit.fullname}`,
+            credits: teachingUnit.studyCredits,
             ecue: this.#makeOXMLListe(Array.from(teachingUnit.modules.values()).map((module) => { return module.name })),
             competence: this.#makeOXMLListe(teachingUnit.getSkills().map((skill) => { return skill.name }))
         })

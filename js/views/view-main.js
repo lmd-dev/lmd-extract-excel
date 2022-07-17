@@ -124,7 +124,7 @@ class ViewMain
     {
         let html = `
             <div class="teaching-unit">
-                <h2>${teachingUnit.name}</h2>
+                <h2>${teachingUnit.name} - ${teachingUnit.fullname} (${teachingUnit.studyCredits} ECTS)</h2>
         `;
 
         if (this.#areSkillsDisplayingPerTeachingUnit())

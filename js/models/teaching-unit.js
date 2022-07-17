@@ -4,6 +4,27 @@ class TeachingUnit
     #name;
     get name() { return this.#name; }
 
+    //Full name of the teaching unit
+    #fullname;
+    get fullname() { return this.#fullname;}
+    set fullname(value) { this.#fullname = value; }
+
+    //Study credits validated by the teaching unit
+    #studyCredits;
+    get studyCredits() { return this.#studyCredits;}
+    set studyCredits(value) 
+    { 
+        if(isNaN(value) || parseInt(value) <= 0)
+            return;
+        
+        this.#studyCredits = value;
+    }
+
+    //Semester in whitch the teaching unit takes place
+    #semester;
+    get semester() { return this.#semester;}
+    set semester(value) { this.#semester = value;}
+
     //collection of modules
     #modules;
     get modules() { return new Map(this.#modules) }
@@ -15,6 +36,9 @@ class TeachingUnit
     constructor(name)
     {
         this.#name = name;
+        this.#fullname = "";
+        this.#studyCredits = 0;
+        this.#semester = 0;
         this.#modules = new Map();
     }
 
