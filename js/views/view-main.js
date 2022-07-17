@@ -34,6 +34,7 @@ class ViewMain
 
         btnLoadFile.addEventListener("click", (event) =>
         {
+            txtFileMatrix.files = null;
             txtFileMatrix.dispatchEvent(new MouseEvent("click"));
         })
 
